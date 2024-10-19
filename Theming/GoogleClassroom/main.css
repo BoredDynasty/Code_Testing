@@ -1,0 +1,192 @@
+/* Google Classroom Dark Theme */
+/* This is literally just copying the base contents and styling them */
+
+@import url("classroom.google.com");
+
+@-moz-document domain("classroom.google.com") {
+    body {
+        background-color: #111216;
+        color: white;
+        font-family: "Google Sans";
+        font-size: .8125rem;
+        font-weight: 400;
+        line-height: 1.25rem;
+        margin: 0;
+        min-width: 18.75rem;
+    }
+
+    li {
+        display: list-item;
+        text-align: -webkit-match-parent;
+        unicode-bidi: isolate;
+    }
+
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    a {
+        text-decoration: none;
+        color: #2962ff;
+    }
+
+    img {
+        border: #313339;
+        border-radius: 16px;
+        overflow-clip-margin: content-box;
+        overflow: clip;
+    }
+
+    div {
+        display: block;
+        unicode-bidi: isolate;
+    }
+
+    /* Class List */
+    .gHz6xd {
+        background-clip: padding-box;
+        display: flex;
+        flex-direction: column;
+        height: 18.375rem;
+        margin-bottom: 1.5rem;
+        margin-right: 1.5rem;
+        overflow: hidden;
+        position: relative;
+        text-align: left;
+        width: 18.75rem;
+    }
+
+    .Aopndd {
+        background-color: transparent;
+        border: 1px solid #313339;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .TQYOZc {
+        flex-grow: 1;
+        min-height: 0;
+        padding: 1rem;
+        padding-top: .75rem;
+        background-color: transparent;
+    }
+
+    .SZ0kZe {
+        border-top: .0625rem solid transparent;
+        line-height: 0;
+        padding: .25rem;
+    }
+
+    .PNzAWd {
+        border-radius: 8px;
+        float: right;
+        height: 4.6875rem;
+        position: relative;
+        margin-top: -3.09375rem;
+        width: 4.6875rem;
+    }
+
+    /* Top Hud */
+    .XIpEib {
+        height: 4rem;
+        padding-left: 1.5rem;
+    }
+
+    .QRiHXd {
+        -webkit-box-align: center;
+        align-items: center;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        flex-direction: row;
+    }
+
+    .joJglb {
+        background: #111216;
+        border-bottom: 1px solid #313339;
+        flex-shrink: 0;
+        line-height: 1.7em;
+        position: fixed;
+        top: 0;
+        transform: none;
+        transition: transform cubic-bezier(.4, 0, .2, 1) .24s;
+        width: 100%;
+        z-index: 986;
+    }
+
+    .Mtd4hb {
+        justify-content: flex-end;
+        flex-shrink: 0;
+        padding-right: .5rem;
+    }
+
+    .QRiHXd {
+        -webkit-box-align: center;
+        align-items: center;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        flex-direction: row;
+    }
+
+    /* Navigation Bar */
+    .Tabkde .OX4Vcb {
+        background-color: transparent;
+        border: #313339;
+    }
+
+    .OX4Vcb {
+        box-sizing: border-box;
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding-bottom: .5rem;
+        padding-top: .5rem;
+        width: 100%;
+    }
+
+    /* Feedback */
+    .eAcXqe .N6nSod {
+        right: 1rem;
+    }
+
+    .N6nSod {
+        background-color: transparent;
+        /* If it still shows up, might aswell style that joint! */
+
+        border-radius: 8px;
+        bottom: 1rem;
+        line-height: 0;
+        margin: -2px;
+        position: relative;
+        z-index: 0;
+        display: none;
+    }
+
+    /* Everything Else */
+    .EXL71e {
+        box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .3), 0 2px 6px 2px rgba(60, 64, 67, .15);
+        font-family: "Google Sans";
+        line-height: 1.5rem;
+        font-size: 1rem;
+        letter-spacing: 0;
+        font-weight: 400;
+        background: transparent;
+        border-radius: 8px;
+        left: 1.5rem;
+        padding: .75rem;
+        position: fixed;
+        top: -6.25rem;
+        transition: top .15s cubic-bezier(.4, 0, .2, 1);
+        z-index: 1000;
+    }
+
+    .onkcGd, .onkcGd:visited, .WPhuJf, .WPhuJf:visited {
+        color: #333;
+    }
+
+    .onkcGd, .onkcGd:visited, .Vx8Sxd, .Vx8Sxd:visited {
+        cursor: pointer;
+        text-decoration: none;
+    }
+}
