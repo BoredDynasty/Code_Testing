@@ -1,0 +1,12 @@
+/* Twitter CSS Theme */
+
+@import url("x.com");
+
+@-moz-document domain("x.com") {
+    body {
+        background-color: #111216;
+        font-family: 'Maple Mono';
+    }
+
+
+}
