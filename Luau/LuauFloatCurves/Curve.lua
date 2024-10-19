@@ -1,3 +1,6 @@
+--[=[
+    @class Curve
+--]=]
 local Curve = {}
 Curve.__index = Curve
 
@@ -6,6 +9,12 @@ Curve.__index = Curve
 
 local self
 
+--[=[
+    @function Constructor
+        @param keys table
+        @param part table
+		@param options table
+--]=]
 function Curve.Constructor(keys: { FloatCurveKey }, part: { any }, options: {})
 	self = setmetatable({}, Curve)
 

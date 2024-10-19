@@ -1,7 +1,16 @@
+--[=[
+    @class AI
+--]=]
 local AI = {}
 
 local HttpService = game:GetService("HttpService")
 
+--[=[
+    @function generate
+        @param input string
+		@tag You may want to filter the input here...
+        @return string?
+--]=]
 function AI:generate(input: string): string?
 	assert(input)
 

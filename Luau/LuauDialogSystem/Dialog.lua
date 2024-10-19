@@ -1,3 +1,6 @@
+--[=[
+    @class Dialog
+--]=]
 local Dialog = {}
 Dialog.__index = Dialog
 
@@ -54,6 +57,11 @@ local function dialog(text, dialogSettings, dialogUI)
 	end
 end
 
+--[=[
+    @function Construtor
+        @param player Player
+		@return any
+--]=]
 function Dialog.Constructor(player): Dialog
 	self = setmetatable({}, Dialog)
 
@@ -65,6 +73,12 @@ function Dialog.Constructor(player): Dialog
 	return self
 end
 
+--[=[
+    @function newDialog
+        @param text table
+        @param dialogUI TextLabel?
+		@param dialogSettings table
+--]=]
 function Dialog.newDialog(text: {}, dialogUI: TextLabel?, dialogSettings: {})
 	for key, value in text do
 		local _, variant = next(text, key)
@@ -76,6 +90,9 @@ function Dialog.newDialog(text: {}, dialogUI: TextLabel?, dialogSettings: {})
 	end
 end
 
+--[=[
+    @function Create
+--]=]
 function Dialog:Cleanup()
 	self.connection:Disconnect()
 	self.connection = nil

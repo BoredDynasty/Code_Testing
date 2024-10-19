@@ -1,3 +1,6 @@
+--[=[
+    @class Camera
+--]=]
 local Camera = {}
 Camera.__index = Camera
 
@@ -10,6 +13,12 @@ export type Camera = {
 	self: {},
 }
 
+--[=[
+    @function Constructor
+        @param options table
+        @param player Player
+		@return any
+--]=]
 function Camera.Constructor(player): Camera
 	self = setmetatable({}, Camera)
 
@@ -25,6 +34,11 @@ function Camera.Constructor(player): Camera
 	return self
 end
 
+--[=[
+    @function SetAngle
+        @param x table
+		@return RBXScriptConnection?
+--]=]
 function Camera:SetAngle(x: { number }): RBXScriptConnection
 	if self.connection == nil then
 		self.connection = RunService.RenderStepped:Connect(function()
@@ -37,6 +51,11 @@ function Camera:SetAngle(x: { number }): RBXScriptConnection
 	return self.connection
 end
 
+--[=[
+    @function SetLook
+        @param x any
+        @return RBXScriptConnection
+--]=]
 function Camera:SetLook(x: any): RBXScriptConnection
 	if self.connection == nil then
 		self.connection = RunService.RenderStepped:Connect(function()
@@ -49,6 +68,10 @@ function Camera:SetLook(x: any): RBXScriptConnection
 	return self.connection
 end
 
+--[=[
+    @function Restore
+        @tag Restores the ``CurrentCamera``'s default properties.
+--]=]
 function Camera:Restore()
 	for property, _ in self.currentCamera do
 		if table.find(self.currentCamera, self.defaultCamera) then

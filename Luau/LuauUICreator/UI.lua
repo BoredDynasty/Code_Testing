@@ -1,3 +1,6 @@
+--[=[
+    @class UIManager
+--]=]
 local UIManager = {}
 UIManager.__index = UIManager
 
@@ -56,7 +59,12 @@ local function createConstructor(player): { GuiObject? }
 
 	return { self.frame, self.title, self.description }
 end
-
+--[=[
+    @function Create
+        @param options table
+        @param player Player
+		@return table, any?
+--]=]
 function UIManager.Create(options: {}, player): UI
 	self = setmetatable({}, UIManager)
 
