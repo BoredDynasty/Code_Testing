@@ -11,7 +11,7 @@ local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
 
 export type Dialog = {
-	self: {},
+	self: { any? },
 }
 
 local self
@@ -37,10 +37,9 @@ local function stopCamera()
 	end
 end
 
-local function dialog(text, dialogSettings, dialogUI)
+local function dialog(text, dialogSettings, dialogUI): {}
 	if not table.find(text) then
 		table.insert(self.debounce, text)
-		print("New Dialog | " .. text)
 		typeWriterEffect(dialogUI, text)
 		dialogSettings["Camera"]["PlayerPostionVector"] = self.player.Character.HumanoidRootPart.Position
 
@@ -48,13 +47,21 @@ local function dialog(text, dialogSettings, dialogUI)
 			startCamera(self.camera, dialogSettings)
 		end
 
-		TweenService:Create(dialogUI, TweenInfo.new(0.5), { Position = dialogSettings["Positions"][1] }):Play()
-		task.wait(5)
-		TweenService:Create(dialogUI, TweenInfo.new(0.5), { Position = dialogSettings["Positions"][2] }):Play()
-		dialogUI.Text = ""
-		stopCamera()
-		table.remove(self.debounce, 1)
+		local tweenIn = TweenService:Create(dialogUI, TweenInfo.new(0.5), { Position = dialogSettings["Positions"][1] })
+		local tweenOut =
+			TweenService:Create(dialogUI, TweenInfo.new(0.5), { Position = dialogSettings["Positions"][2] })
+
+		coroutine.wrap(function()
+			tweenIn:Play()
+			task.wait(5)
+			tweenOut:Play()
+			task.wait(0.5)
+			dialogUI.Text = ""
+			stopCamera()
+			table.remove(self.debounce, 1)
+		end)()
 	end
+	return { self.debounce, dialogSettings }
 end
 
 --[=[
@@ -80,18 +87,20 @@ end
 		@param dialogSettings table
 --]=]
 function Dialog.newDialog(text: {}, dialogUI: TextLabel?, dialogSettings: {})
+	local any = nil
 	for key, value in text do
 		local _, variant = next(text, key)
 		repeat
 			task.wait(0.5)
 		until not table.find(self.debounce, variant)
 
-		dialog(variant, dialogSettings, dialogUI)
+		any = dialog(variant, dialogSettings, dialogUI)
 	end
+	return any
 end
 
 --[=[
-    @function Create
+    @function Cleanup
 --]=]
 function Dialog:Cleanup()
 	self.connection:Disconnect()
