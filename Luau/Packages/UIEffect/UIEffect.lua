@@ -23,6 +23,7 @@ local Style = require(script:WaitForChild("Style"))
 local Color = require(script:WaitForChild("Color"))
 local SoundManager = require(script:FindFirstChild("SoundManager"))
 local Maid = require(script:FindFirstChild("Maid"))
+local Curvy = require(script:FindFirstChild("Curvy"))
 
 local Camera = game.Workspace:WaitForChild("Camera")
 local Blur = Lighting:WaitForChild("Blur", 5)
@@ -118,25 +119,14 @@ function UIEffect.getColor(color: string): Color
 	return Color.getColor(color)
 end
 
-function UIEffect:newTweenInfo(seconds, style, direction, repeatCount, reverses, delayTime): TweenInfo
-	return TweenInfo.new(
-		seconds,
-		Enum.EasingStyle[style],
-		Enum.EasingDirection[direction],
-		repeatCount,
-		reverses,
-		delayTime
-	)
-end
-
 --- @function
 ---
 --- Makes a blur effect.
 function UIEffect.BlurEffect(value)
 	if value == true then
-		TweenService:Create(Blur, TweenInfo.new(0.3), { Size = 10 }):Play()
+		Curvy:Tween(Blur, TweenInfo.new(0.5), "Size", 10)
 	else
-		TweenService:Create(Blur, TweenInfo.new(0.3), { Size = 0 }):Play()
+		Curvy:Tween(Blur, TweenInfo.new(0.5), "Size", 0)
 	end
 
 	return value
@@ -147,34 +137,14 @@ end
 --- Zooms the Camera
 function UIEffect:Zoom(value)
 	if value == true then
-		TweenService:Create(Camera, TweenInfo.new(0.3), { FieldOfView = 60 }):Play()
+		Curvy:Tween(Blur, TweenInfo.new(0.3), "Size", 60)
 		SoundManager.Play({ "ZoomIn" }, script.UISounds)
 	else
-		TweenService:Create(Camera, TweenInfo.new(0.3), { FieldOfView = 70 }):Play()
+		Curvy:Tween(Blur, TweenInfo.new(0.3), "Size", 60)
 		SoundManager.Play({ "ZoomOut" }, script.UISounds)
 	end
 
 	return value
-end
-
---- @function
----
---- @param angle number
---- Makes the Camera go at an angle
-function UIEffect:cameraAngle(value, angle, tweenStyle)
-	return
-	--[[
-	if angle == nil then angle = math.rad(0) end
-	assert(tweenStyle)
-	
-	cameraAngle(value, angle, tweenStyle)
-	
-	if angle < math.rad(90) and value then
-		sound(script.UISounds, "ZoomIn")
-	elseif angle > math.rad(90) and value then
-		sound(script.UISounds, "ZoomOut")
-	end
-	]]
 end
 
 --- @function
@@ -236,36 +206,6 @@ end
 
 --- @function
 ---
---- A Simple Circling Frame Effect.
-function UIEffect.FrameMovingEffect(speed, frame): string
-	task.spawn(function()
-		if not speed then
-			speed = 2
-		end
-		-- A simple parametric equation of a circle
-		-- centered at (0.5, 0.5) with radius (0.5)
-		local function circle(t)
-			return 0.5 + math.cos(t) * 0.5, 0.5 + math.sin(t) * 0.5
-		end
-
-		local currentTime = 0
-
-		local function onRenderStep(deltaTime: number): ()
-			-- Update the current time
-			currentTime = currentTime + deltaTime * speed
-			-- ...and the frame's position
-			local x, y = circle(currentTime)
-			frame.Position = UDim2.new(x, 0, y, 0)
-		end
-
-		RunService:BindToRenderStep("Frame_Circle", Enum.RenderPriority.Last.Value, onRenderStep)
-	end)
-
-	return "Frame_Circle" -- So you can unbind if ya want
-end
-
---- @function
----
 --- Plays a sound within a folder in ReplicatedStorage or just ReplicatedStorage.
 function UIEffect.Sound(soundType, cleanup)
 	SoundManager.Play({ soundType }, script.UISounds)
@@ -279,9 +219,9 @@ function UIEffect.changeColor(color, frame): ()
 
 	task.wait(1)
 	if frame:IsA("Frame") then
-		TweenService:Create(frame, TweenInfo.new(0.1), { BackgroundColor3 = color }):Play()
+		Curvy:Tween(Blur, TweenInfo.new(0.1), "BackgroundColor3", color)
 	elseif frame:IsA("ImageLabel") then
-		TweenService:Create(frame, TweenInfo.new(0.1), { ImageColor3 = color }):Play()
+		Curvy:Tween(Blur, TweenInfo.new(0.5), "ImageColor3", color)
 	end
 end
 
@@ -417,7 +357,7 @@ function UIEffect:changeVisibility(canvas: CanvasGroup, value, frame: Frame?)
 		end
 	end
 end
-
+--[[
 function UIEffect:smoothSwitch(components: {})
 	local component = components[1]
 	-- We want component 1 to dissapear so...
@@ -440,5 +380,6 @@ function UIEffect:smoothSwitch(components: {})
 end
 
 function UIEffect:styleButton(object, style) end
-
+--]]
+-- Thats for the future
 return UIEffect
