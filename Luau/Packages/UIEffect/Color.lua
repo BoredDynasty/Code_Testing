@@ -23,4 +23,14 @@ function Color.getColor(color)
 	return colors[color]
 end
 
+function Color.fromHex(hex: string)
+	return Color3.fromHex(hex)
+end
+
+function Color.fromHex_ToRGB(hex: string)
+	hex = hex:gsub("#", "")
+	local r, g, b = tonumber(hex:sub(1, 2), 16), tonumber(hex:sub(3, 4), 16), tonumber(hex:sub(5, 6), 16)
+	return Color3.fromRGB(r, g, b)
+end
+
 return Color

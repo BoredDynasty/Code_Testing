@@ -1,3 +1,6 @@
+--[=[
+	@class Curvy
+--]=]
 local Curvy = {}
 Curvy.__index = Curvy
 
@@ -36,7 +39,16 @@ local function createCurve(object, info, property, target): Tween
 	return TweenService:Create(object, info, { property = target })
 end
 
-function Curvy:Tween(object, info, property, target)
+function Curvy.Constructor()
+	self = setmetatable({}, Curvy)
+
+	self.Objects = {}
+	self.Curves = {}
+
+	return self, Curvy
+end
+
+function Curvy:Curve(object, info, property, target)
 	local tween = createCurve(object, info, property, target)
 	tween:Play()
 	return tween
@@ -44,6 +56,22 @@ end
 
 function Curvy.TweenInfo(seconds, style, direction, repeatCount, reverses, delayTime)
 	return newTweenInfo(seconds, style, direction, repeatCount, reverses, delayTime)
+end
+
+function Curvy.addCurve(destination: any)
+	return addCurve(destination)
+end
+
+--[=[
+	@function newTweenSequence
+		@within Curvy
+		@param a table Tween
+-]=]
+function Curvy:newTweenSequence(a: { Tween })
+	for i, tween: Tween in a do
+		tween:Play()
+		tween.Completed:Wait()
+	end
 end
 
 return Curvy

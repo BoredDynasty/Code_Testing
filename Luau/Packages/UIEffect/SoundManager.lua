@@ -31,12 +31,12 @@ else
         @param sound table
         @param directory Instance?
 --]=]
-function Audio.Play(sound: { any }, directory: Instance?)
+function Audio.Play(sound: { string | number }, directory: Instance?)
 	if not directory then
 		directory = SoundService -- FYI, ReplicatedStorage is kinda client side so, it'll play for the client.
 	end
 	local audio = nil
-	if type(sound["type"]) == "string" then
+	if type(sound[1]) == "string" then
 		local any: Sound = sound[directory]
 		audio = any:Clone()
 		audio.Parent = sound[directory] :: Instance
@@ -44,10 +44,11 @@ function Audio.Play(sound: { any }, directory: Instance?)
 		audio:Play()
 		Debris:AddItem(audio, audio.TimeLength)
 		return audio
-	elseif type(sound["type"]) == "number" then
-		audio = Instance.new("Sound", directory)
+	else
+		audio = Instance.new("Sound")
+		audio.SoundId = "rbxassetid://" .. sound[1]
+		audio.Parent = SoundService
 		audio:SetAttribute(script.Name, true)
-		audio.SoundId = sound
 		audio:Play()
 		Debris:AddItem(audio, audio.TimeLength)
 		return audio
@@ -61,7 +62,7 @@ end
 function Audio.Music(playlist: { Sound }, client: boolean)
 	local currentlyPlaying = nil
 	if client == true then
-		for index, sound: Sound in playlist do
+		for i, sound: Sound in playlist do
 			local newSound = sound:Clone()
 			newSound.Playing = true
 			newSound.Volume = 1
@@ -72,7 +73,6 @@ function Audio.Music(playlist: { Sound }, client: boolean)
 			next(playlist, sound)
 		end
 	end
-
 	return currentlyPlaying
 end
 
@@ -85,7 +85,7 @@ function Audio.Stop(sound: string, directory: Instance?)
 	assert(directory)
 	if table.find(directory:GetDescendants(), sound) then
 		directory[sound]:Destroy()
-		print(`Removing {sound} sound from {directory.Name}.`)
+		print(`Removing {sound.Name} sound from {directory.Name}.`)
 	end
 end
 
